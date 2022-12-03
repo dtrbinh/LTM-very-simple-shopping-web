@@ -49,7 +49,7 @@
 }
 
 #footer {
-	height: 50px;
+	height: 100px;
 	clear: both;
 	border: 1px solid #CDCDCD;
 	background-color: #F8F8FF;

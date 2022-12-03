@@ -122,4 +122,5 @@
 		<servlet-name>ConfirmServlet</servlet-name>
 		<url-pattern>/ConfirmServlet</url-pattern>
 	</servlet-mapping>
+
 </web-app>
