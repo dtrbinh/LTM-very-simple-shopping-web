@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import model.Cart;
-import dao.UserDAOImpl;
+import model.bean.Cart;
+import model.dao.UserDAO;
 
 /**
  * Servlet implementation class LoginServlet
@@ -22,7 +22,7 @@ import dao.UserDAOImpl;
 //@WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private UserDAOImpl userDAO = new UserDAOImpl();
+	private UserDAO userDAO = new UserDAO();
 	private List<Cart> cart = new ArrayList<Cart>();
 	/**
 	 * @see HttpServlet#HttpServlet()

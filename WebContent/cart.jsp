@@ -1,6 +1,6 @@
-<%@page import="model.Cart"%>
+<%@page import="model.bean.Cart"%>
 <%@page import="java.util.List"%>
-<%@page import="dao.ProductDAOImpl"%>
+<%@page import="model.dao.ProductDAO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.text.NumberFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -60,15 +60,15 @@
 <body>
 	<%
 		String username = null;
-	Cookie[] cookies = request.getCookies();
-	if(cookies !=null)
-	{
-	for(Cookie cookie : cookies)
-	{
-	    if(cookie.getName().equals("username")) 
-	    	username = cookie.getValue();
-	}
-	}
+		Cookie[] cookies = request.getCookies();
+		if(cookies !=null)
+		{
+		for(Cookie cookie : cookies)
+		{
+		    if(cookie.getName().equals("username")) 
+		    	username = cookie.getValue();
+		}
+		}
 	%>
 	<div id="main">
 		<div id="head">
@@ -84,7 +84,7 @@
 					<li class='last'><a href="search_page.jsp"><span>Tìm kiếm</span></a></li>
 					<li class='last' style="float: right;"><a href="login.jsp"><span>Đăng
 								xuất</span></a></li>
-					<li class='last' style="float: right;"><a href="update_user.jsp?username=<%=username %>"><span><%= username %></span></a></li>			
+					<li class='last' style="float: right;"><a href="update_user.jsp?username=<%=username%>"><span><%=username%></span></a></li>			
 				</ul>
 			</div>
 		</div>
@@ -101,15 +101,15 @@
 						class="product-line-price">Tổng tiền</label>
 				</div>
 				<%
-					ProductDAOImpl productDAO = new ProductDAOImpl();
-				
-									NumberFormat nf = NumberFormat.getInstance();
-									nf.setMinimumIntegerDigits(0);
-									double total = 0;
-									ArrayList<Cart> cart=null;
-									if(session.getAttribute("cart")!=null){
-									cart = (ArrayList<Cart>) session
-											.getAttribute("cart");}
+					ProductDAO productDAO = new ProductDAO();
+						
+											NumberFormat nf = NumberFormat.getInstance();
+											nf.setMinimumIntegerDigits(0);
+											double total = 0;
+											ArrayList<Cart> cart=null;
+											if(session.getAttribute("cart")!=null){
+											cart = (ArrayList<Cart>) session
+													.getAttribute("cart");}
 				%>
 				<%
 					if (cart != null) {

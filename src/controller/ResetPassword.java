@@ -19,17 +19,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import model.bean.User;
+import model.bo.UserBO;
 
-
-
-
-
-
-
-
-import model.User;
-import dao.UserDAO;
-import dao.UserDAOImpl;
 
 /**
  * Servlet implementation class ResetPassword
@@ -37,7 +29,6 @@ import dao.UserDAOImpl;
 //@WebServlet("/ResetPassword")
 public class ResetPassword extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private UserDAOImpl userDAO = new UserDAOImpl();
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -64,7 +55,7 @@ public class ResetPassword extends HttpServlet {
 		if (username.equals("")) {
 			err += "Phải nhập đầy đủ thông tin!";
 		} else {
-			if (userDAO.checkUser(username) == false) {
+			if (UserBO.checkUser(username) == false) {
 				err += "Tên đăng nhập không tồn tại!";
 			}
 		}
@@ -77,21 +68,21 @@ public class ResetPassword extends HttpServlet {
 		try {
 			if (err.length() == 0) {
 
-				User u = userDAO.getUser(username);
-				User new_user = new User(u.getUser_id(), username, "passwordreset", u.getNgaysinh(), u.getGioitinh(), u.getEmail(), u.getSdt(), u.getDiachi(), u.getRole());
-				userDAO.updateUser(new_user);
+				User u = UserBO.getUser(username);
+				User new_user = new User(u.getUser_id(), username, "00000", u.getNgaysinh(), u.getGioitinh(), u.getEmail(), u.getSdt(), u.getDiachi(), u.getRole());
+				UserBO.updateUser(new_user);
 				url = "/login.jsp";
 				String mess = "Kiểm tra email để nhận mật khẩu mới!";
 				request.setAttribute("mess", mess);
 				
 				//gửi mật khẩu mới qua email.
-				   final String username_mail = "webbanhang1212050@gmail.com";
-				   final String password = "matkhauwebbanhang";
+				   final String username_mail = "xxx@gmail.com";
+				   final String password = "xxx";
 				   String to = u.getEmail();
 				   String subject = "Reset Password";
 				   String text ="<i>Reset Password</i><br/>";
 						   text+="<p>User: <strong>"; text+=username; text+="</strong></p>";
-						   text+="<p>New password: <strong>passwordreset</strong></p>";
+						   text+="<p>New password: <strong>00000</strong></p>";
 				   Properties props = new Properties();
 				   props.put("mail.smtp.auth", "true");
 					props.put("mail.smtp.starttls.enable", "true");

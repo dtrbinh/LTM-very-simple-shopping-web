@@ -1,7 +1,7 @@
 <%@page import="java.util.ArrayList"%>
-<%@page import="model.Product"%>
+<%@page import="model.bean.Product"%>
 <%@page import="java.util.List"%>
-<%@page import="dao.ProductDAOImpl"%>
+<%@page import="model.dao.ProductDAO"%>
 <%@page import="java.text.NumberFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -45,7 +45,7 @@
 					<li class='last'><a href="search_page.jsp"><span>Tìm kiếm</span></a></li>
 					<li class='last' style="float: right;"><a href="LogoutServlet"><span>Đăng
 								xuất</span></a></li>
-					<li class='last' style="float: right;"><a href="update_user.jsp?username=<%=username %>"><span><%=username%></span></a></li>
+					<li class='last' style="float: right;"><a href="update_user.jsp?username=<%=username%>"><span><%=username%></span></a></li>
 				</ul>
 			</div>
 		</div>
@@ -73,18 +73,17 @@
 			<div id="left"><jsp:include page="search_menu.jsp"></jsp:include></div>
 			<div id="right">
 				<%
-				
-					ProductDAOImpl productDAO = new ProductDAOImpl();
-						List<Product> list = new ArrayList<Product>();
-						list = productDAO.getList();
-						String ten_san_pham = "";
-						String ten_the_loai = "";
-						if (request.getParameter("ten_the_loai") != null && request.getParameter("ten_san_pham")!= null) {
-					ten_the_loai = request.getParameter("ten_the_loai");
-					ten_san_pham = request.getParameter("ten_san_pham");
-						}
-						NumberFormat nf = NumberFormat.getInstance();
-						nf.setMinimumFractionDigits(0);
+					ProductDAO productDAO = new ProductDAO();
+								List<Product> list = new ArrayList<Product>();
+								list = productDAO.getList();
+								String ten_san_pham = "";
+								String ten_the_loai = "";
+								if (request.getParameter("ten_the_loai") != null && request.getParameter("ten_san_pham")!= null) {
+							ten_the_loai = request.getParameter("ten_the_loai");
+							ten_san_pham = request.getParameter("ten_san_pham");
+								}
+								NumberFormat nf = NumberFormat.getInstance();
+								nf.setMinimumFractionDigits(0);
 				%>
 				<% String err = "";
 				if (request.getAttribute("err") != null) {

@@ -1,9 +1,9 @@
-<%@page import="dao.UserDAO"%>
+<%@page import="model.abs.UserDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@page import="dao.UserDAOImpl"%>
-<%@page import="model.User"%>
-<%@page import="dao.UserDAO"%>
+<%@page import="model.bo.UserBO"%>
+<%@page import="model.bean.User"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -14,12 +14,11 @@
 <body>
 	<%
 		String err = "";
-		if (request.getAttribute("err") != null) {
-			err = (String) request.getAttribute("err");
-		}
-		String username= request.getParameter("username");
-		UserDAOImpl userDAO = new UserDAOImpl();
-		User u= userDAO.getUser(username);
+			if (request.getAttribute("err") != null) {
+		err = (String) request.getAttribute("err");
+			}
+			String username= request.getParameter("username");
+			User u= UserBO.getUser(username);
 	%>
 
 	<!--/start-login-two-->

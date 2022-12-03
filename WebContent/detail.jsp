@@ -1,4 +1,4 @@
-<%@page import="dao.ProductDAOImpl"%>
+<%@page import="model.dao.ProductDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@page import="java.text.NumberFormat"%>
@@ -56,14 +56,14 @@
 
 	<%
 		// ham nay de lay ma san pham truyen qua tren thanh dia chj
-		String ma_san_pham = "";
-		if (request.getParameter("ma_san_pham") != null) {
-			ma_san_pham = request.getParameter("ma_san_pham");
-		}
+			String ma_san_pham = "";
+			if (request.getParameter("ma_san_pham") != null) {
+		ma_san_pham = request.getParameter("ma_san_pham");
+			}
 
-		ProductDAOImpl productDAO = new ProductDAOImpl();
-		NumberFormat nf = NumberFormat.getInstance();
-		nf.setMinimumFractionDigits(0);
+			ProductDAO productDAO = new ProductDAO();
+			NumberFormat nf = NumberFormat.getInstance();
+			nf.setMinimumFractionDigits(0);
 	%>
 	<div id="main">
 		<div id="head">

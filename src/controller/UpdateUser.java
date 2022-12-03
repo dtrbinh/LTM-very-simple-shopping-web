@@ -13,9 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.UserDAOImpl;
-import dao.UserDAO;
-import model.User;
+import model.bean.User;
+import model.bo.UserBO;
 
 /**
  * Servlet implementation class UpdateUser
@@ -23,35 +22,40 @@ import model.User;
 //@WebServlet("/UpdateUser")
 public class UpdateUser extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private UserDAOImpl userDAO = new UserDAOImpl();   
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public UpdateUser() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public UpdateUser() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 		String user_id = request.getParameter("id");
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-java.sql.Date ngaysinh= null;
-		
+		java.sql.Date ngaysinh = null;
+
 		try {
-			ngaysinh = new java.sql.Date((new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("ngaysinh"))).getTime());
+			ngaysinh = new java.sql.Date(
+					(new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("ngaysinh"))).getTime());
 		} catch (ParseException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -61,27 +65,25 @@ java.sql.Date ngaysinh= null;
 		String sdt = request.getParameter("sdt");
 		String diachi = request.getParameter("diachi");
 
-		
 		String err = "";
 		String url = "/update_user.jsp";
 
 		if (password.equals("") || email.equals("") || sdt.equals("") || diachi.equals("")) {
 			err += "Phải nhập đầy đủ thông tin!";
 		} else {
-			 
-				Pattern pattenObj = Pattern
-						.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
-								+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
-				Matcher matcherObj = pattenObj.matcher(email);
-				if (!matcherObj.matches()) {
-					err += "Email sai định dạng!";
-				}else{
-					Pattern pattenObj2 = Pattern
-							.compile("(09)\\d{8}|(01)\\d{9}");
-					Matcher matcherObj2 = pattenObj2.matcher(sdt);
-					if (!matcherObj2.matches()) {
-						err += "Sđt sai định dạng!";}
+
+			Pattern pattenObj = Pattern.compile(
+					"^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+			Matcher matcherObj = pattenObj.matcher(email);
+			if (!matcherObj.matches()) {
+				err += "Email sai định dạng!";
+			} else {
+				Pattern pattenObj2 = Pattern.compile("(09)\\d{8}|(01)\\d{9}");
+				Matcher matcherObj2 = pattenObj2.matcher(sdt);
+				if (!matcherObj2.matches()) {
+					err += "Sđt sai định dạng!";
 				}
+			}
 		}
 
 		if (err.length() > 0) {
@@ -90,14 +92,14 @@ java.sql.Date ngaysinh= null;
 
 		try {
 			if (err.length() == 0) {
-				User u= new User(Integer.parseInt(user_id), username, password, ngaysinh, gioitinh, email, sdt, diachi, "2");
-				userDAO.updateUser(u);
+				User u = new User(Integer.parseInt(user_id), username, password, ngaysinh, gioitinh, email, sdt, diachi,
+						"2");
+				UserBO.updateUser(u);
 				url = "/index.jsp";
 			} else {
 				url = "/update_user.jsp";
 			}
-			RequestDispatcher rd = getServletContext()
-					.getRequestDispatcher(url);
+			RequestDispatcher rd = getServletContext().getRequestDispatcher(url);
 			rd.forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();

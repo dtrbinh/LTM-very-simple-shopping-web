@@ -1,7 +1,7 @@
 <%@page import="java.util.ArrayList"%>
-<%@page import="model.Product"%>
+<%@page import="model.bean.Product"%>
 <%@page import="java.util.List"%>
-<%@page import="dao.ProductDAOImpl"%>
+<%@page import="model.dao.ProductDAO"%>
 <%@page import="java.text.NumberFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -45,7 +45,7 @@
 					<li class='last'><a href="search_page.jsp"><span>Tìm kiếm</span></a></li>
 					<li class='last' style="float: right;"><a href="LogoutServlet"><span>Đăng
 								xuất</span></a></li>
-					<li class='last' style="float: right;"><a href="update_user.jsp?username=<%=username %>"><span><%=username%></span></a></li>
+					<li class='last' style="float: right;"><a href="update_user.jsp?username=<%=username%>"><span><%=username%></span></a></li>
 				</ul>
 			</div>
 		</div>
@@ -73,15 +73,15 @@
 			<div id="left"><jsp:include page="category.jsp"></jsp:include></div>
 			<div id="right">
 				<%
-					ProductDAOImpl productDAO = new ProductDAOImpl();
-						List<Product> list = new ArrayList<Product>();
-						list = productDAO.getList();
-						String ma_the_loai = null;
-						if (request.getParameter("ma_the_loai") != null) {
-					ma_the_loai = request.getParameter("ma_the_loai");
-						}
-						NumberFormat nf = NumberFormat.getInstance();
-						nf.setMinimumFractionDigits(0);
+					ProductDAO productDAO = new ProductDAO();
+								List<Product> list = new ArrayList<Product>();
+								list = productDAO.getList();
+								String ma_the_loai = null;
+								if (request.getParameter("ma_the_loai") != null) {
+							ma_the_loai = request.getParameter("ma_the_loai");
+								}
+								NumberFormat nf = NumberFormat.getInstance();
+								nf.setMinimumFractionDigits(0);
 				%>
 				<div id="site-wrapper" style="float: left">
 					<ul class="products homepage">

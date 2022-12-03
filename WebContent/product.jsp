@@ -1,7 +1,7 @@
 <%@page import="java.util.ArrayList"%>
-<%@page import="model.Product"%>
+<%@page import="model.bean.Product"%>
 <%@page import="java.util.List"%>
-<%@page import="dao.ProductDAOImpl"%>
+<%@page import="model.dao.ProductDAO"%>
 <%@page import="java.text.NumberFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -45,7 +45,7 @@
 					<li class='last'><a href="search_page.jsp"><span>Tìm kiếm</span></a></li>
 					<li class='last' style="float: right;"><a href="LogoutServlet"><span>Đăng
 								xuất</span></a></li>
-					<li class='last' style="float: right;"><a href="update_user.jsp?username=<%=username %>"><span><%=username%></span></a></li>
+					<li class='last' style="float: right;"><a href="update_user.jsp?username=<%=username%>"><span><%=username%></span></a></li>
 				</ul>
 			</div>
 		</div>
@@ -73,11 +73,11 @@
 			<div id="content_center" >
 
 <%
-					ProductDAOImpl productDAO = new ProductDAOImpl();
+	ProductDAO productDAO = new ProductDAO();
 	
-						NumberFormat nf = NumberFormat.getInstance();
-						nf.setMinimumFractionDigits(0);
-				%>
+				NumberFormat nf = NumberFormat.getInstance();
+				nf.setMinimumFractionDigits(0);
+%>
 
 				<div id="site-wrapper-p" style="float: left; margin-left: 120px">
 					<ul class="products homepage">

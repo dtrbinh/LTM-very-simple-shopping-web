@@ -18,15 +18,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import model.Cart;
-import model.User;
-import dao.UserDAOImpl;
+import model.bean.Cart;
+import model.bean.User;
+import model.dao.UserDAO;
 
 
 //@WebServlet("/RegisterServlet")
 public class RegisterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private UserDAOImpl userDAO = new UserDAOImpl();
+	private UserDAO userDAO = new UserDAO();
 	private List<Cart> cart = new ArrayList<Cart>();
 
 	/**

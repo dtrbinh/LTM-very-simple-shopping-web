@@ -23,20 +23,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import model.Cart;
-import model.History;
-import model.User;
-import dao.HistoryDAOImpl;
-import dao.ProductDAOImpl;
-import dao.UserDAO;
-import dao.UserDAOImpl;
+import model.bean.Cart;
+import model.bean.History;
+import model.bean.User;
+
+import model.bo.HistoryBO;
+import model.bo.ProductBO;
+import model.bo.UserBO;
 
 //@WebServlet("/ConfirmServlet")
 public class ConfirmServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private UserDAOImpl userDAO = new UserDAOImpl();
-	private ProductDAOImpl productDAO = new ProductDAOImpl();
-	private HistoryDAOImpl historyDAO = new HistoryDAOImpl();
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -53,7 +50,7 @@ public class ConfirmServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String username = request.getParameter("username");
-		User u = userDAO.getUser(username);
+		User u = UserBO.getUser(username);
 		// lấy time lưu csdl
 		Calendar calendar = Calendar.getInstance();
 		java.sql.Timestamp tdate = new java.sql.Timestamp(calendar.getTime().getTime());
@@ -75,13 +72,13 @@ public class ConfirmServlet extends HttpServlet {
 		String text = "<strong>Đơn Hàng - " + username + " - </strong><i> " + ft.format(dNow) + "</i> <ul>";
 		if (cart != null) {
 			for (Cart c : cart) {
-				total = total + (c.getQuantity() * productDAO.getProduct(c.getP().getMa_san_pham()).getGia_ban());
-				text += "<li>" + productDAO.getProduct(c.getP().getMa_san_pham()).getTen_san_pham() + ": "
-						+ nf.format(productDAO.getProduct(c.getP().getMa_san_pham()).getGia_ban()) + "VNĐ </li>";
+				total = total + (c.getQuantity() * ProductBO.getProduct(c.getP().getMa_san_pham()).getGia_ban());
+				text += "<li>" + ProductBO.getProduct(c.getP().getMa_san_pham()).getTen_san_pham() + ": "
+						+ nf.format(ProductBO.getProduct(c.getP().getMa_san_pham()).getGia_ban()) + "VNĐ </li>";
 
 				History h = new History(0, u.getUser_id(), c.getP().getMa_san_pham(), tdate, c.getQuantity(),
-						(c.getQuantity() * productDAO.getProduct(c.getP().getMa_san_pham()).getGia_ban()));
-				historyDAO.addHistory(h);
+						(c.getQuantity() * ProductBO.getProduct(c.getP().getMa_san_pham()).getGia_ban()));
+				HistoryBO.addHistory(h);
 			}
 		}
 		text += "Tổng thanh toán: <strong>" + nf.format(total) + " VNĐ </strong>";
@@ -91,7 +88,7 @@ public class ConfirmServlet extends HttpServlet {
 		props.put("mail.smtp.starttls.enable", "true");
 		props.put("mail.smtp.host", "smtp.gmail.com");
 		props.put("mail.smtp.port", "587");
-		
+
 		Session session_mail = Session.getInstance(props, new javax.mail.Authenticator() {
 			protected PasswordAuthentication getPasswordAuthentication() {
 				return new PasswordAuthentication(fromMail, password);
